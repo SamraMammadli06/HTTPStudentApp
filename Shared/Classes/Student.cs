@@ -9,5 +9,6 @@
         public string? gender { get; set; }
         public string? email { get; set; }
         public string? adress { get; set; }
+        public int grade { get; set; }
     }
 }

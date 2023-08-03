@@ -7,5 +7,6 @@ create table Students(
 	Age int check(Age between 16 and 70),
 	Gender nvarchar(7),
 	Email nvarchar(40) check(Email like '%@%'),
-	Adress nvarchar(50)
+	Adress nvarchar(50),
+	Grade int check(Grade between 0 and 100) not null
 )
