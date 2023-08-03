@@ -14,6 +14,18 @@ namespace BackApp.Repositories
              this.connection = new SqlConnection(connectionString);
         }
 
+        #region Post
+        public async Task CreateAsync(Student student)
+        {
+            await this.connection.ExecuteAsync(
+         sql: @"INSERT INTO Students(Name, Surname, Age, Gender, Email, Address)
+                VALUES(@Name, @Surname, @Age, @Gender, @Email, @Address, @Grades)",
+         param: new { student.name, student.surname, student.age, student.gender,student.email,student.adress,student.grade });
+    
+        }
+        #endregion
+
+        #region Get
         public async Task<IEnumerable<Student>> GetAllAsync()
         {
           var students =  await this.connection.QueryAsync<Student>("SELECT * FROM Students");
@@ -38,15 +50,41 @@ namespace BackApp.Repositories
             return students;
         }
 
-        public async Task CreateAsync(Student student)
+        #endregion
+
+        #region Put
+        public async Task ChangeAdressAsync(Student student, string newAdress)
+        {
+            if(student.adress == newAdress) 
+                return;
+            await this.connection.ExecuteAsync(
+                sql: @"update Students
+                        set Adress = @newAdress
+                        where Id = @id",
+                param: new { newAdress,student.id });
+            student.adress = newAdress;
+        }
+        public async Task ChangeEmailAsync(Student student, string newEmail)
+        {
+            if (student.email == newEmail)
+                return;
+            await this.connection.ExecuteAsync(
+                sql: @"update Students
+                        set Email = @newEmail
+                        where Id = @id",
+                param: new { newEmail, student.id });
+            student.email = newEmail;
+        }
+        #endregion
+
+        #region Delete
+        public async Task DeleteAsync(int id)
         {
             await this.connection.ExecuteAsync(
-         sql: @"INSERT INTO Students(Name, Surname, Age, Gender, Email, Address)
-                VALUES(@Name, @Surname, @Age, @Gender, @Email, @Address, @Grades)",
-         param: new { student.name, student.surname, student.age, student.gender,student.email,student.adress,student.grade });
-    
+                sql: @"delete from Students 
+                         where Id = @id",
+                param: new { id });
         }
-        
-
+        #endregion
     }
 }
