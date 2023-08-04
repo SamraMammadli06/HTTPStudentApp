@@ -11,7 +11,7 @@ namespace BackApp.Repositories
 
         public StudentRepositoryDapper(string connectionString)
         {
-             this.connection = new SqlConnection(connectionString);
+            this.connection = new SqlConnection(connectionString);
         }
 
         #region Post
@@ -20,9 +20,20 @@ namespace BackApp.Repositories
             await this.connection.ExecuteAsync(
          sql: @"INSERT INTO Students(Name, Surname, Age, Gender, Email, Address)
                 VALUES(@Name, @Surname, @Age, @Gender, @Email, @Address, @Grades)",
-         param: new { student.name, student.surname, student.age, student.gender,student.email,student.adress,student.grade });
-    
+         param: new { student.name, student.surname, student.age, student.gender, student.email, student.adress, student.grade });
+
         }
+        
+        //FOR REGISTRATION VIA FORM
+        public async Task CreateAsync(int id, string name, string surname, int? age, int? gender,string? email,string? adress,int? grade){
+            await this.connection.ExecuteAsync(
+       sql: @"INSERT INTO Students(Name, Surname, Age, Gender, Email, Address)
+                VALUES(@Name, @Surname, @Age, @Gender, @Email, @Address, @Grades)",
+       param: new { name, surname, age, gender, email, adress, grade });
+        }
+ 
+   
+
         #endregion
 
         #region Get
