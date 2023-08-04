@@ -24,15 +24,7 @@ namespace BackApp.Repositories
 
         }
         
-        //FOR REGISTRATION VIA FORM
-        public async Task CreateAsync(int id, string name, string surname, int? age, int? gender,string? email,string? adress,int? grade){
-            await this.connection.ExecuteAsync(
-       sql: @"INSERT INTO Students(Name, Surname, Age, Gender, Email, Address)
-                VALUES(@Name, @Surname, @Age, @Gender, @Email, @Address, @Grades)",
-       param: new { name, surname, age, gender, email, adress, grade });
-        }
- 
-   
+
 
         #endregion
 
