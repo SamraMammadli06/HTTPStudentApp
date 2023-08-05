@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientApp", "ClientApp\Clie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerApp", "ServerApp\ServerApp.csproj", "{A45C4601-82C7-4EB6-8707-760517348C53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{413055B4-D40A-489C-B21D-FAD0F9C88888}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{413055B4-D40A-489C-B21D-FAD0F9C88888}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
