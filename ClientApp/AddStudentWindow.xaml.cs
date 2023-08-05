@@ -25,7 +25,6 @@ namespace ClientApp
     {
 
         private readonly HttpClient httpClient = HTTPClientInstance.Instance;
-       Window LoginWindow = new LoginWindow();
         public AddStudentWindow()
         {
             InitializeComponent();
@@ -65,9 +64,7 @@ namespace ClientApp
                 HttpResponseMessage response = httpClient.PostAsync("http://localhost/students/create", content).Result;//await
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Student registered succesfully!");
-
-                    LoginWindow.ShowDialog();
+                    MessageTextBlock.Text = "Student registered succesfully!";
                 }
                 else
                 {

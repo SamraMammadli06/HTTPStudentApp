@@ -67,6 +67,18 @@ namespace BackApp.Repositories
                 param: new { newAdress,student.id });
             student.adress = newAdress;
         }
+
+        public async Task ChangeGradeAsync(Student student, int newGrade)
+        {
+            if (student.grade == newGrade)
+                return;
+            await this.connection.ExecuteAsync(
+                sql: @"update Students
+                        set Grade = @newGrade
+                        where Id = @id",
+                param: new { newGrade, student.id });
+            student.grade = newGrade;
+        }
         public async Task ChangeEmailAsync(Student student, string newEmail)
         {
             if (student.email == newEmail)

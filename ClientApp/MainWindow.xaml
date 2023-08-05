@@ -14,7 +14,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Margin="0,344,0,10">
             <Button Content="Add" Click="AddButton_Click" Margin="5"/>
             <Button Content="Delete" Click="DeleteButton_Click" Margin="5"/>
-            <Button Content="Change" Click="EditButton_Click" Margin="5"/>
+            <Button Content="Edit" Click="EditButton_Click" Margin="5"/>
             <TextBox x:Name="SearchTextBox" Width="150" Margin="5"/>
             <Button Content="Search" Click="SearchButton_Click" Margin="5"/>
         </StackPanel>
@@ -23,13 +23,13 @@
         <ListView x:Name="StudentsListView" Grid.Row="1" Margin="10,10,10,67" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="50"/>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="150"/>
-                    <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" Width="150"/>
-                    <GridViewColumn Header="Age" DisplayMemberBinding="{Binding Age}" Width="50"/>
-                    <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="100"/>
-                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="200"/>
-                    <GridViewColumn Header="Adress" DisplayMemberBinding="{Binding Adress}" Width="200"/>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id}" Width="50"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding name}" Width="150"/>
+                    <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding surname}" Width="150"/>
+                    <GridViewColumn Header="Age" DisplayMemberBinding="{Binding age}" Width="50"/>
+                    <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding gender}" Width="100"/>
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding email}" Width="200"/>
+                    <GridViewColumn Header="Adress" DisplayMemberBinding="{Binding adress}" Width="200"/>
                 </GridView>
             </ListView.View>
         </ListView>

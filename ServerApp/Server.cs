@@ -51,17 +51,17 @@ while (true)
                     case "getbyname":
                         if (context.Request.HttpMethod.ToLower() == "get")
                         {
-                            using var reader = new StreamReader(context.Request.InputStream);
-                            var requestJson = await reader.ReadToEndAsync();
-                            var name = JsonSerializer.Deserialize<string>(requestJson);
+                            var name = requestPath.Split('/', StringSplitOptions.RemoveEmptyEntries).Last();
 
                             if (name == null)
                             {
                                 context.Response.StatusCode = 400;
                                 break;
                             }
-                            await studentsRepository.FindByNameAsync(name);
-                            context.Response.StatusCode = 201;
+                            var users= await studentsRepository.FindByNameAsync(name);
+                            responseJson = JsonSerializer.Serialize(users);
+                            context.Response.ContentType = "application/json";
+                            context.Response.StatusCode = 200;
                         }
                         else
                         {
@@ -93,20 +93,13 @@ while (true)
                             context.Response.StatusCode = 400;
                         }
                         break;
+
                     case "changeadress":
                         if (context.Request.HttpMethod.ToLower() == "put")
                         {
                             using var reader = new StreamReader(context.Request.InputStream);
                             var requestJson = await reader.ReadToEndAsync();
-                            var adress = JsonSerializer.Deserialize<string>(requestJson);
-
-                            if (adress == null)
-                            {
-                                context.Response.StatusCode = 400;
-                                break;
-                            }
-
-                            requestJson = await reader.ReadToEndAsync();
+                            var adress = requestPath.Split('/', StringSplitOptions.RemoveEmptyEntries).Last();
                             var student = JsonSerializer.Deserialize<Student>(requestJson);
 
                             if (student == null)
@@ -126,20 +119,13 @@ while (true)
                         }
                         break;
 
-                    case "changeemail":
+                    case "changegrade":
                         if (context.Request.HttpMethod.ToLower() == "put")
                         {
                             using var reader = new StreamReader(context.Request.InputStream);
                             var requestJson = await reader.ReadToEndAsync();
-                            var email = JsonSerializer.Deserialize<string>(requestJson);
-
-                            if (email == null)
-                            {
-                                context.Response.StatusCode = 400;
-                                break;
-                            }
-
-                            requestJson = await reader.ReadToEndAsync();
+                            var gradeStr = requestPath.Split('/', StringSplitOptions.RemoveEmptyEntries).Last();
+                            var grade = int.Parse(gradeStr);
                             var student = JsonSerializer.Deserialize<Student>(requestJson);
 
                             if (student == null)
@@ -148,7 +134,32 @@ while (true)
                                 break;
                             }
 
-                            await studentsRepository.ChangeAdressAsync(student, email);
+                            await studentsRepository.ChangeGradeAsync(student, grade);
+                            context.Response.StatusCode = 201;
+                        }
+                        else
+                        {
+                            responseJson = "Error: Invalid method type!";
+                            context.Response.ContentType = "plain/text";
+                            context.Response.StatusCode = 400;
+                        }
+                        break;
+
+                    case "changeemail":
+                        if (context.Request.HttpMethod.ToLower() == "put")
+                        {
+                            using var reader = new StreamReader(context.Request.InputStream);
+                            var requestJson = await reader.ReadToEndAsync();
+                            
+                            var student = JsonSerializer.Deserialize<Student>(requestJson);
+
+                            if (student == null)
+                            {
+                                context.Response.StatusCode = 400;
+                                break;
+                            }
+                            var email = requestPath.Split('/', StringSplitOptions.RemoveEmptyEntries).Last();
+                            await studentsRepository.ChangeEmailAsync(student, email);
                             context.Response.StatusCode = 201;
                         }
                         else
@@ -189,19 +200,10 @@ while (true)
                     case "delete":
                         if (context.Request.HttpMethod.ToLower() == "delete")
                         {
-                            using var reader = new StreamReader(context.Request.InputStream);
-                            var requestJson = await reader.ReadToEndAsync();
-                            var student = JsonSerializer.Deserialize<Student>(requestJson);
-
-                            if (student == null)
-                            {
-                                context.Response.StatusCode = 400;
-                                break;
-                            }
-
-                            await studentsRepository.DeleteAsync(student.id);
+                            var strId = requestPath.Split('/', StringSplitOptions.RemoveEmptyEntries).Last();
+                           int id = int.Parse(strId);
+                            await studentsRepository.DeleteAsync(id);
                             context.Response.StatusCode = 201;
-                            responseJson = $"User '{student.name} {student.surname}' deleted successfully!";
                             context.Response.ContentType = "plain/text";
                         }
                         else

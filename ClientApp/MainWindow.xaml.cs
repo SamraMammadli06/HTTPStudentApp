@@ -28,6 +28,7 @@ namespace ClientApp
         {
             InitializeComponent();
             LoadStudents();
+            this.DataContext = this;
         }
 
         private async void LoadStudents()
@@ -50,11 +51,12 @@ namespace ClientApp
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             // Открыть окно для добавления студента
+            this.Hide();
             AddStudentWindow addStudentWindow = new AddStudentWindow();
             addStudentWindow.ShowDialog();
-
-            // Обновить список студентов после закрытия окна добавления
             LoadStudents();
+            this.ShowDialog();
+            // Обновить список студентов после закрытия окна добавления
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -68,13 +70,13 @@ namespace ClientApp
 
             // Получение выбранного студента
             Student selectedStudent = (Student)StudentsListView.SelectedItem;
-
+            this.Hide();
             // Открыть окно для изменения студента
-            //EditStudentWindow editStudentWindow = new EditStudentWindow(selectedStudent);
-            //editStudentWindow.ShowDialog();
-
+            EditStudentWindow editStudentWindow = new EditStudentWindow(selectedStudent);
+            editStudentWindow.ShowDialog();
             // Обновить список студентов после закрытия окна изменения
             LoadStudents();
+            this.ShowDialog();
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -113,13 +115,17 @@ namespace ClientApp
             if (string.IsNullOrEmpty(searchText))
             {
                 // Если поле поиска пустое, показываем всех студентов
-                StudentsListView.ItemsSource = students;
+                LoadStudents();
             }
             else
             {
                 // Фильтруем список студентов по имени (или другим полям, если нужно)
-                List<Student> filteredStudents = students.FindAll(s => s.name.ToLower().Contains(searchText.ToLower()));
-                StudentsListView.ItemsSource = filteredStudents;
+                HttpResponseMessage response =  httpClient.GetAsync($"http://localhost/students/getbyname/{searchText}").Result;
+                response.EnsureSuccessStatusCode();
+
+                string responseJson =  response.Content.ReadAsStringAsync().Result;
+                students = JsonSerializer.Deserialize<List<Student>>(responseJson);
+                StudentsListView.ItemsSource = students;
             }
         }
         private void StudentsListView_SelectedItemChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
