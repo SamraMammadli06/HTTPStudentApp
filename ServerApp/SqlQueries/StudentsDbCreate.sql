@@ -1,4 +1,5 @@
 use StudentsDb
+
 create table Students(
 	[Id] int primary key identity,
 	[Name] nvarchar(30) not null,

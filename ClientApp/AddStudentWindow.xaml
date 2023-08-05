@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="Add new student" Height="450" Width="400">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFD0D0FF"/>
+                <GradientStop Color="#FFDDFFF8" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -20,31 +26,37 @@
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Add student" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="0"/>
+        <TextBlock Text="Add student" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="0" Foreground="#FF7C4B50"/>
 
-        <Label Content="Name:" Grid.Row="1" Margin="10"/>
-        <TextBox x:Name="NameTextBox" Grid.Row="1" Margin="100,0,10,0"/>
+        <Label Content="Name:" Grid.Row="1" Margin="10" Foreground="#FF0175BF" FontWeight="Bold"/>
+        <TextBox x:Name="NameTextBox" Grid.Row="1" Margin="100,0,10,0" Background="#FFDFEAFF"/>
 
-        <Label Content="Surname:" Grid.Row="2" Margin="10"/>
-        <TextBox x:Name="SurnameTextBox" Grid.Row="2" Margin="100,0,10,0"/>
+        <Label Content="Surname:" Grid.Row="2" Margin="10"  Foreground="#FF0175BF" FontWeight="Bold"/>
+        <TextBox x:Name="SurnameTextBox" Grid.Row="2" Margin="100,0,10,0" Background="#FFDFEAFF"/>
 
-        <Label Content="Email:" Grid.Row="3" Margin="10"/>
-        <TextBox x:Name="EmailTextBox" Grid.Row="3" Margin="100,0,10,0"/>
+        <Label Content="Email:" Grid.Row="3" Margin="10" Foreground="#FF0175BF" FontWeight="Bold"/>
+        <TextBox x:Name="EmailTextBox" Grid.Row="3" Margin="100,0,10,0" Background="#FFDFEAFF"/>
 
-        <Label Content="Adress:" Grid.Row="4" Margin="10"/>
-        <TextBox x:Name="AdressTextBox" Grid.Row="4" Margin="100,0,10,0"/>
+        <Label Content="Adress:" Grid.Row="4" Margin="10" Foreground="#FF0175BF" FontWeight="Bold"/>
+        <TextBox x:Name="AdressTextBox" Grid.Row="4" Margin="100,0,10,0" Background="#FFDFEAFF"/>
 
-        <Label Content="Age:" Grid.Row="5" Margin="10"/>
-        <TextBox x:Name="AgeTextBox" Grid.Row="5" Margin="100,0,10,0"/>
+        <Label Content="Age:" Grid.Row="5" Margin="10"  Foreground="#FF0175BF" FontWeight="Bold"/>
+        <TextBox x:Name="AgeTextBox" Grid.Row="5" Margin="100,0,10,0" Background="#FFDFEAFF"/>
 
-        <Label Content="Gender:" Grid.Row="6" Margin="10"/>
-        <ComboBox x:Name="GenderCombobox" Grid.Row="6" Margin="100,0,10,0">
+        <Label Content="Gender:" Grid.Row="6" Margin="10" Foreground="#FF0175BF" FontWeight="Bold"/>
+        <ComboBox x:Name="GenderCombobox" Grid.Row="6" Margin="100,0,10,0" BorderBrush="#FF90F7E7">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FF90F1EF" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
             <ComboBoxItem IsSelected="True" Content="Male"/>
             <ComboBoxItem Content="Female"/>
         </ComboBox>
 
         <TextBlock x:Name="MessageTextBlock" Grid.Row="7" Margin="10,10,10,0" Foreground="Red"/>
-        <Button Content="Register" Click="RegisterButton_Click" Grid.Row="8" Margin="0,10,0,0" />
+        <Button Content="Register" Click="RegisterButton_Click" Grid.Row="8" Margin="0,10,0,0" Background="#FFA0FFF8" Foreground="#FF105B2D" BorderBrush="#FF78C8C7"/>
 
     </Grid>
 </Window>

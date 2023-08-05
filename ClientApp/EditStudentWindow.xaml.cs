@@ -39,6 +39,14 @@ namespace ClientApp
         }
         private void EmailChange_Click(object sender, RoutedEventArgs e)
         {
+            // Проверка эмейла
+            if (!EmailTextBox.Text.Contains('@'))
+            {
+                MessageTextBlock.Text = "Non correct email!";
+                return;
+            }
+
+            MessageTextBlock.Text = "Email changed succesfully!";
             HttpContent content = JsonContent.Create(student);
             HttpResponseMessage response = httpClient.PutAsync((@$"http://localhost/students/changeemail/{this.EmailTextBox.Text}"),content).Result;
             response.EnsureSuccessStatusCode();
@@ -47,6 +55,7 @@ namespace ClientApp
 
         private void AdressCahnge_Click(object sender, RoutedEventArgs e)
         {
+            MessageTextBlock.Text = "Adress changed succesfully!";
             HttpContent content = JsonContent.Create(student);
             HttpResponseMessage response = httpClient.PutAsync((@$"http://localhost/students/changeadress/{this.AdressTextBox.Text}"), content).Result;
             response.EnsureSuccessStatusCode();
@@ -54,6 +63,12 @@ namespace ClientApp
 
         private void GradeCahge_Click(object sender, RoutedEventArgs e)
         {
+            if (!int.TryParse(GradeTextBox.Text, out int grade) || grade < 0 || grade > 100)
+            {
+                MessageTextBlock.Text = "Grade should be between 0 and 100!";
+                return;
+            }
+            MessageTextBlock.Text = "Grade changed succesfully!";
             HttpContent content = JsonContent.Create(student);
             HttpResponseMessage response = httpClient.PutAsync((@$"http://localhost/students/changegrade/{this.GradeTextBox.Text}"), content).Result;
             response.EnsureSuccessStatusCode();

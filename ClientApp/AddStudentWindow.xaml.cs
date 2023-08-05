@@ -30,7 +30,7 @@ namespace ClientApp
             InitializeComponent();
         }
 
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)//async buttonclick?
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             // Проверка полей на пустоту
             if (string.IsNullOrWhiteSpace(NameTextBox.Text) || string.IsNullOrWhiteSpace(SurnameTextBox.Text) ||
@@ -41,9 +41,16 @@ namespace ClientApp
                 return;
             }
             // Проверка возраста на числовое значение
-            if (!int.TryParse(AgeTextBox.Text, out int age))
+            if (!int.TryParse(AgeTextBox.Text, out int age) || age < 15 || age > 70)
             {
                 MessageTextBlock.Text = "Non correct age!";
+                return;
+            }
+
+            // Проверка эмейла
+            if (!EmailTextBox.Text.Contains('@'))
+            {
+                MessageTextBlock.Text = "Non correct email!";
                 return;
             }
 

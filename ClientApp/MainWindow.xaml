@@ -1,31 +1,45 @@
 ﻿<Window x:Class="ClientApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Teacher's Journal" Height="506" Width="800">
-    <Grid Margin="0,0,0,43">
+        Title="Teacher's Journal" Height="500" Width="1082">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFDBCDF0"/>
+            <GradientStop Color="#FFFAEDCB" Offset="1"/>
+            <GradientStop Color="#FFFEABFF" Offset="0.52"/>
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <Grid Margin="0,0,0,33">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+              
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Teacher's Journal" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+        <TextBlock Text="Teacher's Journal" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="#FFA47878"/>
 
         <!-- Панель для кнопок добавления, удаления и изменения студентов -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Margin="0,344,0,10">
-            <Button Content="Add" Click="AddButton_Click" Margin="5"/>
-            <Button Content="Delete" Click="DeleteButton_Click" Margin="5"/>
-            <Button Content="Edit" Click="EditButton_Click" Margin="5"/>
+            <Button Content="Add" Click="AddButton_Click" Margin="5" Width="64" Background="#FFC9E4DE"/>
+            <Button Content="Delete" Click="DeleteButton_Click" Margin="5" Width="64" Background="#FFC6DEF1"/>
+            <Button Content="Edit" Click="EditButton_Click" Margin="5" Width="64" Background="#FFF2C6DE"/>
             <TextBox x:Name="SearchTextBox" Width="150" Margin="5"/>
-            <Button Content="Search" Click="SearchButton_Click" Margin="5"/>
+            <Button Content="Search" Click="SearchButton_Click" Margin="5" Width="64" Background="#FFF7D9C4"/>
         </StackPanel>
 
         <!-- Список всех студентов -->
-        <ListView x:Name="StudentsListView" Grid.Row="1" Margin="10,10,10,67" >
+        <ListView x:Name="StudentsListView" Grid.Row="1" Margin="10,10,10,67" Background="#FFFFF4EB" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id}" Width="50"/>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding name}" Width="150"/>
                     <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding surname}" Width="150"/>
+                    <GridViewColumn Header="Grade" DisplayMemberBinding="{Binding grade}" Width="150"/>
                     <GridViewColumn Header="Age" DisplayMemberBinding="{Binding age}" Width="50"/>
                     <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding gender}" Width="100"/>
                     <GridViewColumn Header="Email" DisplayMemberBinding="{Binding email}" Width="200"/>
