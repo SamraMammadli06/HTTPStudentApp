@@ -18,9 +18,9 @@ namespace BackApp.Repositories
         public async Task CreateAsync(Student student)
         {
             await this.connection.ExecuteAsync(
-         sql: @"INSERT INTO Students(Name, Surname, Age, Gender, Email, Address)
-                VALUES(@Name, @Surname, @Age, @Gender, @Email, @Address, @Grades)",
-         param: new { student.name, student.surname, student.age, student.gender, student.email, student.adress, student.grade });
+         sql: @"INSERT INTO Students(Name, Surname, Age, Gender, Email, Adress)
+                VALUES(@Name, @Surname, @Age, @Gender, @Email, @Adress)",
+         param: new { student.name, student.surname, student.age, student.gender, student.email, student.adress});
 
         }
         

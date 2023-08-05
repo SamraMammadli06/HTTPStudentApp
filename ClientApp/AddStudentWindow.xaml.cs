@@ -4,6 +4,7 @@ using Shared.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
@@ -20,11 +21,12 @@ using System.Windows.Shapes;
 
 namespace ClientApp
 {
-    public partial class RegisterWindow : Window
+    public partial class AddStudentWindow : Window
     {
 
         private readonly HttpClient httpClient = HTTPClientInstance.Instance;
-        public RegisterWindow()
+       Window LoginWindow = new LoginWindow();
+        public AddStudentWindow()
         {
             InitializeComponent();
         }
@@ -33,9 +35,8 @@ namespace ClientApp
         {
             // Проверка полей на пустоту
             if (string.IsNullOrWhiteSpace(NameTextBox.Text) || string.IsNullOrWhiteSpace(SurnameTextBox.Text) ||
-                string.IsNullOrWhiteSpace(PasswordBox.Password) || string.IsNullOrWhiteSpace(EmailTextBox.Text) ||
                 string.IsNullOrWhiteSpace(AdressTextBox.Text) || string.IsNullOrWhiteSpace(AgeTextBox.Text) ||
-                string.IsNullOrWhiteSpace(GenderTextBox.Text))
+               GenderCombobox.SelectedItem == null)
             {
                 MessageTextBlock.Text = "Fill all empty boxes!";
                 return;
@@ -47,6 +48,7 @@ namespace ClientApp
                 return;
             }
 
+            string gender = GenderCombobox.SelectedItem.ToString().Substring(37);
             Student newStudent = new Student
             {
                 name = NameTextBox.Text,
@@ -54,20 +56,30 @@ namespace ClientApp
                 adress = AdressTextBox.Text,
                 email = EmailTextBox.Text,
                 age = int.Parse(AgeTextBox.Text),
-                gender = GenderTextBox.Text
+                gender = gender
+             
             };
-           
             HttpContent content =JsonContent.Create(newStudent);
-            HttpResponseMessage response = httpClient.PostAsync("http://localhost/students/create", content).Result;//await
-            if (response.IsSuccessStatusCode)
+            try
             {
-                MessageBox.Show("Student registered succesfully!");
-                // переход на другую страницу после успешной регистрации.
+                HttpResponseMessage response = httpClient.PostAsync("http://localhost/students/create", content).Result;//await
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Student registered succesfully!");
+
+                    LoginWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageTextBlock.Text = "Register error.";
+                }
             }
-            else
+                catch (Exception ex)
             {
-                MessageTextBlock.Text = "Register error.";
+                MessageTextBlock.Text = "An error occurred: " + ex.Message;
+
             }
+            
         }
 
       

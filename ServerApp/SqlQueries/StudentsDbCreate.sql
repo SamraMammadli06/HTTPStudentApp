@@ -1,5 +1,4 @@
 use StudentsDb
-
 create table Students(
 	[Id] int primary key identity,
 	[Name] nvarchar(30) not null,
@@ -8,5 +7,5 @@ create table Students(
 	Gender nvarchar(7),
 	Email nvarchar(40) check(Email like '%@%'),
 	Adress nvarchar(50),
-	Grade int check(Grade between 0 and 100) not null
+	Grade int check(Grade between 0 and 100)
 )
